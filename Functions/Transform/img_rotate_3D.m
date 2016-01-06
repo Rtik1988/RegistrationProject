@@ -1,0 +1,39 @@
+function [ Ir ] = img_rotate_3D( I, angle, translate, inter)
+%IMG_ROTATE_3D Rotate the image by a givven angles vector
+%   Rotates the image by 'angle' radians in every axis, with interpulation 
+%   method inter, and translation vector translate
+%
+%   Arguments:
+%       I - Source image
+%       angle - rotation angle vector in radians
+%       translate - translation vector in pixels
+%       inter - nn\bil\bic
+%   Output:
+%       Ir - The resulting image
+%
+%   Written by Atriom Lapshin 2016
+
+R_x = [1,0,0,0;...
+       0,cos(angle(1)),-sin(angle(1)),0;...
+       0,sin(angle(1)),cos(angle(1)),0;...
+       0,0,0,1];
+
+R_y = [cos(angle(2)),0,sin(angle(2)),0;...
+       0,1,0,0;...
+       -sin(angle(2)),0,cos(angle(2)),0;...
+       0,0,0,1];
+   
+R_z = [cos(angle(3)),-sin(angle(3)),0,0;...
+       sin(angle(3)),cos(angle(3)),0,0;...
+       0,0,1,0;...
+       0,0,0,1];
+   
+T = [1, 0, 0, translate(1);...
+     0, 1, 0, translate(2);...
+     0, 0, 1, translate(3);...
+     0, 0, 0, 1];
+   
+Ir = transform_img_3D(I,T*R_z*R_y*R_x,inter);
+
+end
+
