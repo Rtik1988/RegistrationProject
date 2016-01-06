@@ -48,21 +48,7 @@ current_factor = MAX_OPT_FACTOR;
 while (current_factor > STOP_OPT_FACTOR)
     GRAD_STEP = opt_factor/LINE_SEARCH_STEPS;
     
-    ngrad2 = derive_bspine_2D( It, Is, O, GRAD_STEP, err, metric, Spacing );
-    
-    % Calculate the error in every direction
-    for i=1:numel(grad)
-        delta = zeros(size(grad));
-        delta(i) = GRAD_STEP(i);
-        Od = O + delta;
-        Itemp=img_bspline_transform_2D(Is, Od, Spacing);
-        grad(i)=img_distance(It, Itemp, metric, 0) - err;
-    end
-    
-    % Normalize
-    ngrad = grad./sqrt(sum(grad(:).^2));
-    
-    disp(sum(ngrad(:)-ngrad2(:)));
+    ngrad = derive_bspine_2D( It, Is, O, GRAD_STEP, err, metric, Spacing );
     
     % Perform line search along the gradient
     possible_O = zeros(LINE_SEARCH_STEPS+1,numel(grad)+1);

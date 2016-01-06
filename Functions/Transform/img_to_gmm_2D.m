@@ -30,7 +30,7 @@ OrderedGMModel = gmdistribution(GMModel.mu(index),GMModel.Sigma(index),GMModel.P
 
 % Build probability maps
 Ip = double(round(255.*posterior(OrderedGMModel,I(:))));
-Ip = reshape(Ip,sizey,sizex,3).*repmat(double(I~=0),1,1,3);
+Ip = reshape(Ip,sizey,sizex,3).*repmat(double(I~=0),[1,1,3]);
 
 end
 
