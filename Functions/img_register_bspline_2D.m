@@ -48,7 +48,8 @@ current_factor = MAX_OPT_FACTOR;
 while (current_factor > STOP_OPT_FACTOR)
     GRAD_STEP = opt_factor/LINE_SEARCH_STEPS;
     
-    %[regAx,regAy,regBx,regBy]=regioninfluenced2D(i,j,O_uniform,size(I1));
+    ngrad2 = derive_bspine_2D( It, Is, O, GRAD_STEP, err, metric, Spacing );
+    
     % Calculate the error in every direction
     for i=1:numel(grad)
         delta = zeros(size(grad));
@@ -60,6 +61,8 @@ while (current_factor > STOP_OPT_FACTOR)
     
     % Normalize
     ngrad = grad./sqrt(sum(grad(:).^2));
+    
+    disp(sum(ngrad(:)-ngrad2(:)));
     
     % Perform line search along the gradient
     possible_O = zeros(LINE_SEARCH_STEPS+1,numel(grad)+1);
