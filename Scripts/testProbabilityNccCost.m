@@ -9,17 +9,17 @@ Ip = img_to_gmm_2D(double(It), 3);
 for i=-50:50
     res(1,i+51)=i;
     
-%     % Rotate
-%     angle=2*pi*i/100;
-%     Ir = double(img_rotate_2D(Ip, angle, 'bil'));
-%     res(2,i+51)=img_nc(Ir,Ip);
-%     % Translate X
-%     
-%     T = [1, 0, sizex*i/100; ...
-%          0, 1, 0; ...
-%          0, 0, 1];
-%     Ir = double(transform_img_2(Ip, T, 'bil'));
-%     res(3,i+51)=img_nc(Ir,Ip); 
+    % Rotate
+    angle=2*pi*i/100;
+    Ir = double(img_rotate_2D(Ip, angle, 'bil'));
+    res(2,i+51)=img_mse(Ir,Ip,0);
+    % Translate X
+    
+    T = [1, 0, sizex*i/100; ...
+         0, 1, 0; ...
+         0, 0, 1];
+    Ir = double(img_affine_transform(Ip, T, 'bil'));
+    res(3,i+51)=img_mse(Ir,Ip,0); 
 %     
 %     % Translate Y
 %     T = [1, 0, 0; ...
@@ -28,19 +28,19 @@ for i=-50:50
 %     Ir = double(transform_img_2(Ip, T, 'bil'));
 %     res(4,i+51)=img_nc(Ir,Ip); 
     
-    % Scale X
-    T = [1+0.2*i/100, 0, 0; ...
-         0, 1, 0; ...
-         0, 0, 1];
-    Ir = double(transform_img_2(Ip, T, 'bil'));
-    res(2,i+51)=img_nc(Ir,Ip); 
-    
-    % Translate Y
-    T = [1, 0, 0; ...
-         0, 1+0.2*i/100, 0; ...
-         0, 0, 1];
-    Ir = double(transform_img_2(Ip, T, 'bil'));
-    res(3,i+51)=img_nc(Ir,Ip); 
+%     % Scale X
+%     T = [1+0.2*i/100, 0, 0; ...
+%          0, 1, 0; ...
+%          0, 0, 1];
+%     Ir = double(img_affine_transform(Ip, T, 'bil'));
+%     res(2,i+51)=img_ncc(Ir,Ip,0); 
+%     
+%     % Translate Y
+%     T = [1, 0, 0; ...
+%          0, 1+0.2*i/100, 0; ...
+%          0, 0, 1];
+%     Ir = double(img_affine_transform(Ip, T, 'bil'));
+%     res(3,i+51)=img_ncc(Ir,Ip,0); 
     
     disp(i);
 end

@@ -15,13 +15,13 @@ switch metric
     case 'mi'
         distance = img_mi(Ia,Ib,is3D);
     case 'mse'
-        distance = img_mse(Ia,Ib);
+        distance = img_mse(Ia,Ib,is3D);
     case 'nmi'
         distance = img_nmi(Ia,Ib,is3D);
     case 'rmse'
         distance = img_rmse(Ia,Ib);
     case 'ncc'
-        distance = img_ncc(Ia,Ib);
+        distance = img_ncc(Ia,Ib,is3D);
     case 'cr'
         distance = img_cr(Ia,Ib);
 end
